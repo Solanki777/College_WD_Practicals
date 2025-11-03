@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Village - Khas</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: white;
+      background: url("https://upload.wikimedia.org/wikipedia/commons/b/b3/Village_farm_gujarat%2Cindia.jpg") no-repeat center center/cover fixed;
+    }
+    /* dark overlay for readability */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: -1;
+    }
+    nav {
+      background: rgba(0,0,0,0.7);
+      padding: 7px;
+      text-align: center;
+      position: sticky; top: 0;
+    }
+    nav a {
+      color: white;
+      margin: 0 7px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    section {
+      padding: 40px 10px;
+      text-align: center;
+    }
+    h1 { font-size: 2.5em; }
+    p  { font-size: 1.2em; max-width: 800px; margin: auto; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <section id="home">
+    <h1>Welcome to Khas</h1>
+    <p>A beautiful village in Ranpur Taluka, Gujarat</p>
+  </section>
+
+  <section id="about">
+    <h1>About</h1>
+    <p>Khas is a peaceful village with rich culture and traditions, located in Ranpur Taluka of Gujarat.</p>
+  </section>
+
+  <section id="gallery">
+    <h1>Gallery</h1>
+    <img src="https://i.pinimg.com/originals/6a/c7/a4/6ac7a4dd8782a19017d9e1d5526e7c05.jpg" width="400">
+    <p>Nearby Sarangpur Hanuman Temple</p>
+  </section>
+
+  <section id="contact">
+    <h1>Contact</h1>
+    <p>Pin Code: 382255, Ranpur Taluka, Gujarat</p>
+  </section>
+</body>
+</html>

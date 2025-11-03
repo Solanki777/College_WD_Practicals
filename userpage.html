@@ -1,0 +1,108 @@
+<?php
+$servername = "localhost";
+$username = "root";   // default for XAMPP
+$password = "";       // default is blank
+$dbname = "registration_db";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name = $_POST['name'];
+    $dob = $_POST['dob'];
+    $gender = $_POST['gender'];
+    $email = $_POST['email'];
+    $mobile = $_POST['mobile'];
+    $address = $_POST['address'];
+    $state = $_POST['state'];
+    $education = $_POST['education'];
+
+    // handle image upload
+    $imageName = $_FILES['image']['name'];
+    $imageTmp = $_FILES['image']['tmp_name'];
+    $uploadDir = "uploads/";
+    if (!is_dir($uploadDir)) mkdir($uploadDir);
+    move_uploaded_file($imageTmp, $uploadDir.$imageName);
+
+    $sql = "INSERT INTO users (name, dob, gender, email, mobile, address, state, education, image) 
+            VALUES ('$name','$dob','$gender','$email','$mobile','$address','$state','$education','$imageName')";
+    if ($conn->query($sql)) {
+        header("Location: display.php");
+        exit();
+    } else {
+        echo "Error: " . $conn->error;
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Transparent Registration Form</title>
+  <style>
+    body {
+      margin:0; padding:0;
+      font-family:Arial, sans-serif;
+      background:url('https://static.vecteezy.com/system/resources/thumbnails/029/921/379/small_2x/megaphone-label-with-register-now-megaphone-banner-web-design-stock-illustration-vector.jpg') no-repeat center top;
+      background-size:cover;
+      min-height:100vh;
+    }
+    .form-overlay {
+      max-width:600px;
+      margin:40px auto;
+      padding:20px;
+      background-color:rgba(255,255,255,0.6);
+      border-radius:8px;
+      backdrop-filter:blur(4px);
+      box-shadow:0 0 10px rgba(0,0,0,0.2);
+    }
+    td { padding:8px; }
+    input, select, textarea { width:100%; padding:6px; }
+    button { padding:10px 20px; background:#d32f2f; color:white; border:none; cursor:pointer; }
+    button:hover { background:#b71c1c; }
+  </style>
+</head>
+<body>
+  <div class="form-overlay">
+    <h2 style="text-align:center;">User Registration</h2>
+    <form method="post" enctype="multipart/form-data">
+      <table>
+        <tr><td>Full Name:</td><td><input type="text" name="name" required></td></tr>
+        <tr><td>Date of Birth:</td><td><input type="date" name="dob" required></td></tr>
+        <tr><td>Gender:</td>
+          <td>
+            <input type="radio" name="gender" value="Male" required> Male
+            <input type="radio" name="gender" value="Female"> Female
+            <input type="radio" name="gender" value="Other"> Other
+          </td>
+        </tr>
+        <tr><td>Email:</td><td><input type="email" name="email" required></td></tr>
+        <tr><td>Mobile:</td><td><input type="tel" name="mobile" pattern="[0-9]{10}" required></td></tr>
+        <tr><td>Address:</td><td><textarea name="address" rows="3" required></textarea></td></tr>
+        <tr><td>State:</td>
+          <td>
+            <select name="state" required>
+              <option value="">Select State</option>
+              <option value="Gujarat">Gujarat</option>
+              <option value="Maharashtra">Maharashtra</option>
+              <option value="Delhi">Delhi</option>
+            </select>
+          </td>
+        </tr>
+        <tr><td>Education:</td>
+          <td>
+            <select name="education" required>
+              <option value="">Select Education</option>
+              <option value="High School">High School</option>
+              <option value="Bachelor’s Degree">Bachelor’s Degree</option>
+              <option value="Master’s Degree">Master’s Degree</option>
+              <option value="PhD">PhD</option>
+            </select>
+          </td>
+        </tr>
+        <tr><td>Upload Image:</td><td><input type="file" name="image" required></td></tr>
+        <tr><td colspan="2" style="text-align:center;"><button type="submit">Register</button></td></tr>
+      </table>
+    </form>
+  </div>
+</body>
+</html>

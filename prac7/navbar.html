@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Colorful Frames Example</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+        /* Navigation Panel */
+        .nav {
+            width: 20%;
+            background-color: #2c3e50; /* Dark blue */
+            padding: 10px;
+            box-sizing: border-box;
+            color: white;
+        }
+        .nav h3 {
+            text-align: center;
+            color: #f1c40f; /* Yellow */
+        }
+        .nav a {
+            display: block;
+            padding: 10px;
+            margin: 6px 0;
+            background: #34495e; /* Gray-blue */
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .nav a:hover {
+            background: #e67e22; /* Orange */
+        }
+        /* Content Area */
+        .content {
+            width: 80%;
+            border: none;
+            background-color: #ecf0f1; /* Light gray */
+        }
+        /* Page styles inside iframe */
+        .page {
+            padding: 20px;
+            font-size: 18px;
+        }
+        .home { background-color: #1abc9c; color: white; }      /* Teal */
+        .about { background-color: #9b59b6; color: white; }     /* Purple */
+        .services { background-color: #3498db; color: white; }  /* Blue */
+        .contact { background-color: #e74c3c; color: white; }   /* Red */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Left Navigation -->
+        <div class="nav">
+            <h3>Navigation</h3>
+            <a href="#home" onclick="document.getElementById('frame').srcdoc=document.getElementById('home').innerHTML">Home</a>
+            <a href="#about" onclick="document.getElementById('frame').srcdoc=document.getElementById('about').innerHTML">About</a>
+            <a href="#services" onclick="document.getElementById('frame').srcdoc=document.getElementById('services').innerHTML">Services</a>
+            <a href="#contact" onclick="document.getElementById('frame').srcdoc=document.getElementById('contact').innerHTML">Contact</a>
+        </div>
+
+        <!-- Right Content Area -->
+        <iframe id="frame" class="content"></iframe>
+    </div>
+
+    <!-- Hidden content for iframe -->
+    <div id="home" style="display:none">
+        <div class="page home">
+            <h1>Welcome to Home Page</h1>
+            <p> home content</p>
+        </div>
+    </div>
+
+    <div id="about" style="display:none">
+        <div class="page about">
+            <h1>About Us</h1>
+            <p>page content</p>
+        </div>
+    </div>
+
+    <div id="services" style="display:none">
+        <div class="page services">
+            <h1>Our Services</h1>
+            <p>services</p>
+        </div>
+    </div>
+
+    <div id="contact" style="display:none">
+        <div class="page contact">
+            <h1>Contact Us</h1>
+            <p>You can reach us at: contact@example.com</p>
+        </div>
+    </div>
+
+    <script>
+        // Load Home page by default
+        document.getElementById('frame').srcdoc = document.getElementById('home').innerHTML;
+    </script>
+</body>
+</html>

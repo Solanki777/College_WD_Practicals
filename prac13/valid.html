@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Transparent Registration Form</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: url('https://static.vecteezy.com/system/resources/thumbnails/029/921/379/small_2x/megaphone-label-with-register-now-megaphone-banner-web-design-stock-illustration-vector.jpg') center top no-repeat;
+      background-size: cover;
+      min-height: 100vh;
+    }
+    .form-overlay {
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: rgba(255,255,255,0.6);
+      border-radius: 8px;
+      backdrop-filter: blur(4px);
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+    form table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    td {
+      border: 1px solid #555;
+      padding: 8px 10px;
+      vertical-align: middle;
+      background-color: rgba(255,255,255,0.8);
+    }
+    td label {
+      display: inline-block;
+      width: 120px;
+      font-weight: bold;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 6px;
+      box-sizing: border-box;
+      border: 1px solid #aaa;
+      border-radius: 4px;
+      background-color: rgba(255,255,255,1);
+    }
+    .gender-options label {
+      font-weight: normal;
+      margin-right: 10px;
+    }
+    .gender-options input[value="male"] + label {
+      font-weight: bold;
+    }
+    .submit-row {
+      text-align: center;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #d32f2f;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #b71c1c;
+    }
+    #output {
+      margin-top: 20px;
+      padding: 15px;
+      background: rgba(255,255,255,0.9);
+      border-radius: 8px;
+      border: 1px solid #aaa;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-overlay">
+    <h2 style="text-align:center;">User Registration</h2>
+    <form onsubmit="displayInfo(event)">
+      <table>
+        <tr>
+          <td><label for="name">Full Name:</label></td>
+          <td><input type="text" id="name" name="name" required></td>
+        </tr>
+        <tr>
+          <td><label for="dob">Date of Birth:</label></td>
+          <td><input type="date" id="dob" name="dob" required></td>
+        </tr>
+        <tr>
+          <td><label>Gender:</label></td>
+          <td class="gender-options">
+            <input type="radio" id="male" name="gender" value="Male" required>
+            <label for="male">Male</label>
+            <input type="radio" id="female" name="gender" value="Female">
+            <label for="female">Female</label>
+            <input type="radio" id="other" name="gender" value="Other">
+            <label for="other">Other</label>
+          </td>
+        </tr>
+        <tr>
+          <td><label for="email">Email ID:</label></td>
+          <td><input type="email" id="email" name="email" required></td>
+        </tr>
+        <tr>
+          <td><label for="mobile">Mobile No.:</label></td>
+          <td><input type="tel" id="mobile" name="mobile" pattern="[0-9]{10}" required></td>
+        </tr>
+        <tr>
+          <td><label for="address">Address:</label></td>
+          <td><textarea id="address" name="address" rows="3" required></textarea></td>
+        </tr>
+        <tr>
+          <td><label for="state">State:</label></td>
+          <td>
+            <select id="state" name="state" required>
+              <option value="">Select State</option>
+              <option value="Gujarat">Gujarat</option>
+              <option value="Maharashtra">Maharashtra</option>
+              <option value="Delhi">Delhi</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td><label for="education">Education:</label></td>
+          <td>
+            <select id="education" name="education" required>
+              <option value="">Select Education</option>
+              <option value="High School">High School</option>
+              <option value="Bachelor’s Degree">Bachelor’s Degree</option>
+              <option value="Master’s Degree">Master’s Degree</option>
+              <option value="PhD">PhD</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td><label for="image">Upload Image:</label></td>
+          <td><input type="file" id="image" name="image" accept="image/*" required></td>
+        </tr>
+        <tr>
+          <td colspan="2" class="submit-row">
+            <button type="submit">Register</button>
+          </td>
+        </tr>
+      </table>
+    </form>
+    <div id="output"></div>
+  </div>
+
+ <script>
+  function displayInfo(event) {
+    event.preventDefault(); // prevent actual form submission
+
+    // Get form values
+    let name = document.getElementById("name").value.trim();
+    let dob = document.getElementById("dob").value;
+    let gender = document.querySelector('input[name="gender"]:checked');
+    let email = document.getElementById("email").value.trim();
+    let mobile = document.getElementById("mobile").value.trim();
+    let address = document.getElementById("address").value.trim();
+    let state = document.getElementById("state").value;
+    let education = document.getElementById("education").value;
+    let image = document.getElementById("image").files[0]?.name;
+
+    // ✅ Validation
+    if (name.length < 3) {
+      alert("Name must be at least 3 characters long.");
+      return;
+    }
+
+    if (!dob) {
+      alert("Please select your Date of Birth.");
+      return;
+    }
+
+    if (!gender) {
+      alert("Please select a gender.");
+      return;
+    }
+
+    let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+    if (!email.match(emailPattern)) {
+      alert("Please enter a valid email address.");
+      return;
+    }
+
+    let mobilePattern = /^[0-9]{10}$/;
+    if (!mobile.match(mobilePattern)) {
+      alert("Mobile number must be exactly 10 digits.");
+      return;
+    }
+
+    if (address.length < 5) {
+      alert("Address must be at least 5 characters long.");
+      return;
+    }
+
+    if (state === "") {
+      alert("Please select your State.");
+      return;
+    }
+
+    if (education === "") {
+      alert("Please select your Education level.");
+      return;
+    }
+
+    if (!image) {
+      alert("Please upload an image.");
+      return;
+    }
+
+    // ✅ If all validations pass, display information
+    let info = `
+      <h3>Submitted Information:</h3>
+      <p><strong>Name:</strong> ${name}</p>
+      <p><strong>Date of Birth:</strong> ${dob}</p>
+      <p><strong>Gender:</strong> ${gender.value}</p>
+      <p><strong>Email:</strong> ${email}</p>
+      <p><strong>Mobile:</strong> ${mobile}</p>
+      <p><strong>Address:</strong> ${address}</p>
+      <p><strong>State:</strong> ${state}</p>
+      <p><strong>Education:</strong> ${education}</p>
+      <p><strong>Uploaded Image:</strong> ${image}</p>
+    `;
+
+    document.getElementById("output").innerHTML = info;
+  }
+</script>
+
+</body>
+</html>
