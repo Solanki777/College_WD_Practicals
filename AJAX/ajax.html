@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <h1>AJAX Example</h1>
+        <Button onclick= "buttonClickHandler()" type="button" id="bt">click me</Button>
+        <script >
+//             console.log("Welcome into ajax world")
+
+// let fetchb=document.getElementById("bt");
+// fetchb.addEventListener('click', buttonClickHandler);
+
+function buttonClickHandler(){
+
+    console.log("you clicked the button")
+
+
+    const xhr=new XMLHttpRequest();
+
+    // it opens the XML objext and it takes 3 input one is method other one is file name  and other is asychornous or not ?
+    xhr.open('GET','Harry.txt',true);
+    xhr.onprogress=function(){
+        console.log("On progress")
+    }
+    xhr.onload = function(){
+        console.log(this.responseText)
+    }
+
+    // send request
+    xhr.send();
+
+
+
+}
+        </script>
+  
+    </head>
+    <body>
+        
+    </body>
+</html>
